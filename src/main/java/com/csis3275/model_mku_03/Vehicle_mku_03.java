@@ -1,7 +1,7 @@
 package com.csis3275.model_mku_03;
 
 // parent class with appropriate get and set methods for properties
-public class Vehicle_mku_03 {
+public class Vehicle_mku_03 implements VehicleInterface_mku_03 {
 	public String powerSource;
 	public int wheels;
 	public String type;
@@ -41,8 +41,29 @@ public class Vehicle_mku_03 {
 		this.year = year;
 	}
 
-	// child classes extending parent class with appropriate get and set methods for properties
-	public class Car extends Vehicle_mku_03 {
+	// overridden classes implemented in interface
+	@Override
+	public String sound() {
+		String sound;
+		if (type.equals("Car"))
+			sound = "vroom vroom";
+		else
+			sound = "beep beep";
+		return sound;
+	}
+
+	@Override
+	public String seats() {
+		String seats;
+		if (type.equals("Car"))
+			seats = "2+";
+		else
+			seats = "1";
+		return seats;
+	}
+
+	// child classes extending parent class and implementing interface with appropriate get and set methods for properties
+	public class Car extends Vehicle_mku_03 implements VehicleInterface_mku_03 {
 		public String speed;
 		public String safety;
 		
@@ -55,9 +76,21 @@ public class Vehicle_mku_03 {
 			safety = "safe with seatbelts and airbags available (but depends on driver...)";
 			return safety;
 		}
+		
+		@Override
+		public String sound() {
+			String sound = "vroom vroom";
+			return sound;
+		}
+		
+		@Override
+		public String seats() {
+			String seats = "2+";
+			return seats;
+		}
 	}
 	
-	public class Bike extends Vehicle_mku_03 {	
+	public class Bike extends Vehicle_mku_03 implements VehicleInterface_mku_03 {	
 		public String speed;
 		public String safety;
 		
@@ -69,6 +102,22 @@ public class Vehicle_mku_03 {
 		public String safety() {
 			safety = "moderately safe (becareful of cars!)";
 			return safety;
+		}
+		@Override
+		public String sound() {
+			String sound = "beep beep";
+			return sound;
+		}
+		
+		@Override
+		public String seats() {
+			String seats = "1";
+			return seats;
+		}
+		
+		public String display() {
+			String display = "A " + type + " is " + safety + " as it goes at a " + speed + " speed";
+			return display;
 		}
 	}
 }
